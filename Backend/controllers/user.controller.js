@@ -29,7 +29,7 @@ export const register = async (req, res)=>{
             password:hashPassword,
             role
         });
-        await newUser .save()
+        await newUser.save()
 
         return res.status(200).json({
             message:`Account created successfully ${fullname}`,
