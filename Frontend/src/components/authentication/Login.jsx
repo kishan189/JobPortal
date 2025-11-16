@@ -7,10 +7,10 @@ import { Button } from '../ui/button'
 import { Link } from 'react-router-dom'
 import { toast } from 'sonner'
 import axios from 'axios'
-import { USER_LOGIN } from '@/utils/data'
+import { USER_API_ENDPOINT } from '@/utils/data'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { setLoading } from '@/redux/authSlice'
+import { setLoading, setUserData } from '@/redux/authSlice'
 
 const Login = () => {
 
@@ -43,7 +43,7 @@ const Login = () => {
           try{
             dispatch(setLoading(true))
          const res =  await axios.post(
-            USER_LOGIN,
+            `${USER_API_ENDPOINT}/login`,
             userInput,
             {
                 headers:{
@@ -57,7 +57,7 @@ const Login = () => {
           if(res.data.success){
             toast.success(res.data.message)
              dispatch(setLoading(false))
-            
+             dispatch(setUserData(res?.data?.user))
             localStorage.setItem("userData",JSON.stringify(res?.data?.user))
             navigate("/")
          }
@@ -126,34 +126,4 @@ const Login = () => {
     )
 }
 
-export default Login
-
-{/* <div className='flex items-center justify-between'>
-                       
-
-                        <RadioGroup className="flex items-center gap-4 my-5">
-                            <div className="flex items-center space-x-2">
-                                <input
-                                    type="radio" name="role"
-                                    value="Student"
-                                    checked={userInput.role === "Student"}
-                                    onChange={changeEventHandler}
-                                    className="cursor-pointer">
-
-                                </input>
-                                <Label htmlFor="r1">Student</Label>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                <input
-                                    type="radio" name="role"
-                                    value="Recruiter"
-                                    checked={userInput.role === "Recruiter"}
-                                    onChange={changeEventHandler}
-                                    className="cursor-pointer">
-
-                                </input>
-                                <Label htmlFor="r2">Recruiter</Label>
-                            </div>
-                        </RadioGroup>
-
-                    </div> */}
+export default Login;

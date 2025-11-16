@@ -6,9 +6,10 @@ import { RadioGroup, RadioGroupItem } from '../ui/radio-group'
 import { Button } from '../ui/button'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios'
-import { USER_REGISTER } from '@/utils/data'
+import { USER_API_ENDPOINT } from '@/utils/data'
 import { toast } from "sonner"
 import { setLoading } from '@/redux/authSlice'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 const Register = () => {
@@ -38,7 +39,7 @@ const Register = () => {
        try{
         dispatch(setLoading(true))
          const res =  await axios.post(
-            USER_REGISTER,
+            `${USER_API_ENDPOINT}/register`,
             userInput,
             {
                 headers:{
