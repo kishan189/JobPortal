@@ -8,28 +8,53 @@ import { AvatarFallback, AvatarImage } from '@radix-ui/react-avatar'
 import { LogOut, User2 } from 'lucide-react'
 import { useDispatch, useSelector } from 'react-redux'
 import { setUserData } from '@/redux/authSlice'
+import { toast } from 'sonner'
+import axios from 'axios'
+import { USER_API_ENDPOINT} from '@/utils/data'
 
 function Navbar() {
 
     const [user, setUser] = useState(null)
-    const userData = useSelector((state)=>state?.auth?.userData)
+    const userData = useSelector((state) => state?.auth?.userData)
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const [isLogoutLoading, setIsLogoutLoading] = useState(false)
 
-    useEffect(()=>{
-        try{
+    useEffect(() => {
+        try {
             const userData = JSON.parse(localStorage.getItem("userData"))
             setUser(userData)
         }
-        catch(error){
+        catch (error) {
 
         }
-    },[])
+    }, [])
 
-    const handleLogout = ()=>{
-        localStorage.clear()
-         dispatch(setUserData(null))
-        navigate("/login")
+    const handleLogout = async () => {
+        try {
+             setIsLogoutLoading(true)
+            
+            const res = await axios.post(
+               `${USER_API_ENDPOINT}/logout`,
+                {
+                withCredential: true,
+                },
+            )
+            console.log("res", res)
+            if (res.data.success) {
+                 setIsLogoutLoading(false)
+                toast.success(res.data.message)
+                localStorage.clear()
+                dispatch(setUserData(null))
+                // navigate("/login")
+            }
+        }
+
+        catch (error) {
+            console.log("error", error)
+             setIsLogoutLoading(false)
+            toast.error(res?.response?.data.message)
+        }
     }
     return (
         <div className='bg-white'>
@@ -51,10 +76,10 @@ function Navbar() {
                         !userData ? (
                             <div className='flex items-center justify-center gap-4'>
                                 <Link to={"/login"}>
-                                <Button variant="outline" className="cursor-pointer">Login</Button>
+                                    <Button variant="outline" className="cursor-pointer">Login</Button>
                                 </Link>
                                 <Link to={"/register"}>
-                                <Button className="cursor-pointer bg-red-500 hover:bg-red-600">Register</Button>
+                                    <Button className="cursor-pointer bg-red-500 hover:bg-red-600">Register</Button>
                                 </Link>
 
                             </div>
@@ -65,8 +90,9 @@ function Navbar() {
                                         {/* <Button variant="outline" className="cursor-pointer"> */}
                                         <Avatar className="cursor-pointer">
                                             <AvatarImage
-                                                src="https://github.com/shadcn.png"
-                                                alt="@shadcn"
+                                                // src="https://github.com/shadcn.png"
+                                                src={userData?.profile?.profilePhoto}
+                                                alt="profile pic"
                                             />
                                             <AvatarFallback>CN</AvatarFallback>
 
@@ -85,12 +111,21 @@ function Navbar() {
                                             <div className='flex flex-col gap-3 text-gray-600'>
                                                 <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                                     <User2></User2>
-                                                    <Button variant="link">View Profile</Button>
+                                                    <Button variant="link"><Link to="/profile">View Profile</Link></Button>
                                                 </div>
                                                 <div className='flex w-fit items-center gap-2 cursor-pointer'
-                                                onClick={handleLogout}>
+                                                    onClick={handleLogout}
+                                                    >
                                                     <LogOut></LogOut>
-                                                    <Button variant="link">Logout</Button>
+                                                    <Button variant="link" className="cursor-pointer">
+                                                        {
+                                                            isLogoutLoading ? (
+                                                                <span>Loading....</span>
+                                                            ):
+                                                            <span>Logout</span>
+                                                        }
+                                                        
+                                                     </Button>
                                                 </div>
                                             </div>
 

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -13,6 +13,10 @@ import TermsOfService from './components/component_lite/TermOfService'
 import { Home } from './pages/Home'
 import { Jobs } from './pages/Jobs'
 import Browse from './pages/Browse'
+import { setUserData } from './redux/authSlice'
+import { useDispatch } from 'react-redux'
+import Profile from './pages/Profile'
+import Description from './pages/Description'
 
 const appRouter = createBrowserRouter([
   {path:"/", element : 
@@ -23,10 +27,25 @@ const appRouter = createBrowserRouter([
    {path:"/terms", element : <ProtectedRoute><TermsOfService/></ProtectedRoute>},
    {path:"/jobs", element : <ProtectedRoute><Jobs/></ProtectedRoute>},
    {path:"/browse", element :<ProtectedRoute><Browse/></ProtectedRoute> },
+   {path:"/profile", element :<ProtectedRoute><Profile/></ProtectedRoute> },
+  {path:"/description/:jobId", element :<ProtectedRoute><Description/></ProtectedRoute> },
 ])
 function App() {
+   
+  const dispatch = useDispatch()
+   useEffect(()=>{
+    try{
+       const userData = JSON.parse(localStorage.getItem("userData"))
+       if(userData){
+           dispatch(setUserData(userData))
+       }
+    }
+    catch(error){
+      console.log(error)
+    }
+   },[])
 
-  return (
+     return (
    <div>
      <RouterProvider router = {appRouter}>
 

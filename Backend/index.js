@@ -32,7 +32,7 @@ const PORT = 5171;
 
 app.use("/api/users", userRoute);
 app.use("/api/company", companyRoute);
-app.use("/api/job", jobRoute);
+app.use("/api/jobs", jobRoute);
 app.use("/api/application", applicationRoute);
 
 

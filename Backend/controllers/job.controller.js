@@ -47,14 +47,14 @@ export const getAllJobs = async (req,res) =>{
         if(!jobs || jobs.length === 0){
             return res.status(404).json({message:"No job found",status:false})
         }
-        return res.status(200).json({jobs,status:true})
+        return res.status(200).json({jobs:jobs,status:true, message:"successfully jobs fetched"})
 
 
     }
     catch(error){
             console.log("Error in getAllJobs:", error.message);
             console.log("Full error:", error);
-          return res.status(500).json({message:"Server error", status:false})
+          return res.status(500).json({message:"Server error", status:false,data:[]})
     }
 }
 
@@ -63,11 +63,11 @@ export const getJobById = async (req,res) =>{
     try{
 
         const jobId = req.params.id
-        const jobs = await Job.findById(jobId);
-        if(!jobs){
+        const job = await Job.findById(jobId);
+        if(!job){
             return res.status(404).json({message:"No job found",status:false})
         }
-        return res.status(200).json({jobs,status:true})
+        return res.status(200).json({job,status:true})
 
 
     }
