@@ -17,6 +17,7 @@ import { setUserData } from './redux/authSlice'
 import { useDispatch } from 'react-redux'
 import Profile from './pages/Profile'
 import Description from './pages/Description'
+import Companies from './components/adminComponents/Companies'
 
 const appRouter = createBrowserRouter([
   {path:"/", element : 
@@ -29,6 +30,9 @@ const appRouter = createBrowserRouter([
    {path:"/browse", element :<ProtectedRoute><Browse/></ProtectedRoute> },
    {path:"/profile", element :<ProtectedRoute><Profile/></ProtectedRoute> },
   {path:"/description/:jobId", element :<ProtectedRoute><Description/></ProtectedRoute> },
+    {path:"/admin/companies", element :<ProtectedRoute><Companies/></ProtectedRoute> },
+  {path:"/admin/companies", element :<ProtectedRoute><Description/></ProtectedRoute> },
+
 ])
 function App() {
    

@@ -59,7 +59,13 @@ const Login = () => {
              dispatch(setLoading(false))
              dispatch(setUserData(res?.data?.user))
             localStorage.setItem("userData",JSON.stringify(res?.data?.user))
-            navigate("/")
+            if(res?.data?.user?.role==="Recruiter"){
+                navigate("/admin/companies")
+            }
+            else{
+              navigate("/")
+            }
+            
          }
         }
  

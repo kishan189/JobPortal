@@ -47,7 +47,7 @@ function Navbar() {
                 toast.success(res.data.message)
                 localStorage.clear()
                 dispatch(setUserData(null))
-                // navigate("/login")
+                navigate("/login")
             }
         }
 
@@ -69,9 +69,22 @@ function Navbar() {
                 </div>
                 <div className="flex item-center justify-between gap-8">
                     <ui className="flex font-medium items-center gap-6 list-none">
-                        <Link to={"/"}><li>Home</li></Link>
-                        <Link to="/browse">Browse</Link>
-                        <Link to="/jobs">Jobs</Link >
+                       {
+                        user && user.role ==="Recruiter" ?
+                        (
+                            <>
+                             <Link to={"/admin/companies"}><li>Companies</li></Link>
+                            <Link to="/admin/jobs">Jobs</Link>
+                            </>
+                        ):
+                        (
+                            <>
+                             <Link to={"/"}><li>Home</li></Link>
+                            <Link to="/browse">Browse</Link>
+                            <Link to="/jobs">Jobs</Link >
+                            </>
+                        )
+                       }
                     </ui>
                     {
                         !userData ? (
@@ -105,15 +118,22 @@ function Navbar() {
                                         <div className="grid gap-4">
                                             <div className="space-y-2">
                                                 <h4 className="leading-none font-medium">{userData?.fullname}</h4>
+                                                { user?.role==="Student" &&
                                                 <p className="text-muted-foreground text-sm">
                                                     Set the dimensions for the layer.
                                                 </p>
+                                                }
                                             </div>
                                             <div className='flex flex-col gap-3 text-gray-600'>
+                                                {
+                                                    user?.role==="Student" && (
+                                                
                                                 <div className='flex w-fit items-center gap-2 cursor-pointer'>
                                                     <User2></User2>
                                                     <Button variant="link"><Link to="/profile">View Profile</Link></Button>
                                                 </div>
+                                                )
+                                            }
                                                 <div className='flex w-fit items-center gap-2 cursor-pointer'
                                                     onClick={handleLogout}
                                                     >

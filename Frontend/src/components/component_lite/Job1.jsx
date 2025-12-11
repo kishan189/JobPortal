@@ -13,15 +13,16 @@ const Job1 = ({job}) => {
     const loading = useSelector((state) => state?.job?.loading)
     const [activeJobId, setActiveJobId] = useState(null)
 
-    const handleNavigateDetail = async (jobId) => {
+    const handleNavigateDetail = (jobId) => {
         setActiveJobId(jobId)
-        const data = await dispatch(fetchJobById(jobId));
+         navigate(`/description/${jobId}`);
+        // const data = await dispatch(fetchJobById(jobId));
 
-        console.log("data job by id", data);
+        // console.log("data job by id", data);
 
-        if (data?.payload?.status) {
-            navigate(`/description/${jobId}`);
-        }
+        // if (data?.payload?.status) {
+        //     navigate(`/description/${jobId}`);
+        // }
     };
 
    

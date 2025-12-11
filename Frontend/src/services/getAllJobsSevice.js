@@ -10,7 +10,6 @@ export const fetchAllJobsService = async () => {
 export const getJobById = async (jobId) => {
     try {
         const res = await apiInterceptor.get(
-            // `http://localhost:5171/api/jobs/get/${jobId}`
              `http://localhost:5171/api/jobs/get/${jobId}`
         );
 
