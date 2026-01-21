@@ -48,7 +48,11 @@ const jobSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Application",
         default: []
-    }]
-})
+    }],
+ },
+{
+    timestamps: true // ✅ adds createdAt & updatedAt automatically
+  }
+)
 
 export const Job = mongoose.model("Job",jobSchema)
