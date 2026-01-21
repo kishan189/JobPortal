@@ -24,6 +24,7 @@ const AdminJobs = () => {
   const handleNavigate = ()=>{
     navigate("/admin/postJob")
   }
+  console.log("input>>>",input)
   return (
     <div>
       <Navbar/>

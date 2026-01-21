@@ -8,6 +8,7 @@ import { Button } from '../ui/button'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { setRegisterCompany } from '@/redux/companySlice'
+import { COMPANY_API_ENDPOINT } from '@/utils/data'
 
 const CreateCompany = () => {
     const dispatch = useDispatch()
@@ -22,7 +23,7 @@ const CreateCompany = () => {
                 return
             }
             setIdLoading(true)
-            const res = await apiInterceptor.post(`${"http://localhost:5171/api/company/register"}`, { companyName })
+            const res = await apiInterceptor.post(`${COMPANY_API_ENDPOINT}/register`, { companyName })
             console.log("data>>>::", res)
             if (res?.status) {
                 dispatch(setRegisterCompany(res?.data?.company))
