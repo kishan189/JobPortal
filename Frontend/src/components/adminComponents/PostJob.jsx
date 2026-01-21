@@ -45,7 +45,7 @@ const PostJob = () => {
         position: 0,
         companyId:"",
     })
-
+console.log("input>>>",input)
     useEffect(() => {
 
         console.log("input@@@@",input)
