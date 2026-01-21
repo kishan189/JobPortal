@@ -1,7 +1,9 @@
-export const USER_API_ENDPOINT = "http://localhost:5171/api/users"
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:5171/api";
 
-export const JOB_API_ENDPOINT = "http://localhost:5171/api/jobs"
+export const USER_API_ENDPOINT = `${API_BASE_URL}/users`;
 
-export const COMPANY_API_ENDPOINT = "http://localhost:5171/api/company"
+export const JOB_API_ENDPOINT = `${API_BASE_URL}/jobs`;
 
-export const APPLICATION_API_ENDPOINT  = "http://localhost:5171/application"
+export const COMPANY_API_ENDPOINT = `${API_BASE_URL}/company`;
+
+export const APPLICATION_API_ENDPOINT = `${API_BASE_URL}/application`;

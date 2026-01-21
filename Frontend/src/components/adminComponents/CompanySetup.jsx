@@ -9,6 +9,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { useSelector } from 'react-redux'
 import useGetCompanyById from '@/hooks/useGetCompanyById'
+import { COMPANY_API_ENDPOINT } from '@/utils/data'
 
 const CompanySetup = () => {
 
@@ -68,7 +69,7 @@ const CompanySetup = () => {
         try {
             
             setIsLoading(true)
-            const res = await apiInterceptor.post(`http://localhost:5171/api/company/update/${companyId}`, formData)
+            const res = await apiInterceptor.post(`${COMPANY_API_ENDPOINT}/update/${companyId}`, formData)
             console.log("data>>>::", res)
             if (res?.status) {
                 // dispatch(setRegisterCompany(res?.data?.company))
