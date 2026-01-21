@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Table, TableBody, TableCaption, TableCell, TableHead, TableHeader, TableRow } from '../ui/table'
 import { Avatar, AvatarImage } from '../ui/avatar'
 import { PopoverContent, Popover, PopoverTrigger } from '../ui/popover'
@@ -10,6 +10,23 @@ const CompaniesTable = () => {
   
   const navigate = useNavigate()
   const companyList = useSelector((state) => state?.company?.companyList)
+  const searchCompanyByText = useSelector((state) => state?.company?.searchCompanyByText)
+
+  const [filterCompanies, setFilterCompanies] = useState([])
+
+
+  useEffect(()=>{
+    const filterCompany =  companyList?.filter((company,index)=>{
+       if(!searchCompanyByText){
+        return company;
+       }
+       return company?.name?.toLowerCase().includes(searchCompanyByText.toLowerCase())
+    })
+    console.log("filerCompany>>>>>>",filterCompany)
+        setFilterCompanies(filterCompany)
+  },[searchCompanyByText,companyList])
+
+ console.log("filterCompanies>>",filterCompanies)
   console.log("companyList>>", companyList)
 
   const handleEditCompany =  (companyId)=>{
@@ -19,7 +36,7 @@ const CompaniesTable = () => {
   return (
     <div>
       <Table>
-        {/* <TableCaption> testingHello</TableCaption> */}
+        <TableCaption> Your registerd Companies</TableCaption>
         <TableHeader>
           <TableRow>
             <TableCell>Company Logo</TableCell>
@@ -31,9 +48,9 @@ const CompaniesTable = () => {
         </TableHeader>
         <TableBody>
           {
-            companyList?.length > 0 ? (
-              companyList?.map((item, index) => (
-                <TableRow key={item}>
+            filterCompanies?.length > 0 ? (
+              filterCompanies?.map((item, index) => (
+                <TableRow key={index}>
                   <TableCell>
                     <Avatar>
                       <AvatarImage src={item?.logo}></AvatarImage>

@@ -48,7 +48,9 @@ const jobSlice = createSlice({
     allJobs: [],
     loading: false,
     error: null,
-    jobDetails:null
+    jobDetails:null,
+    allAdminJobs:[],
+    searchJobsByText:""
   },
   reducers: {
     setAllJobs: (state, action) => {
@@ -66,6 +68,15 @@ const jobSlice = createSlice({
       //      job.applications.push(jobId)
       //   }
       // })
+    },
+    setAllAdminJobs: (state, action)=>{
+      state.allAdminJobs = action.payload
+    },
+    SetSearchJobsByText: (state, action)=>{
+      state.searchJobsByText = action.payload
+    },
+    UpdateAllAdminJobs: (state, action)=>{
+      state.allAdminJobs = state?.allAdminJobs?.push(action.payload)
     }
   },
   extraReducers: (builder) => {
@@ -97,5 +108,5 @@ const jobSlice = createSlice({
   },
 });
 
-export const { setAllJobs, setAppliedJob } = jobSlice.actions;
+export const { setAllJobs, setAppliedJob, setAllAdminJobs,SetSearchJobsByText,UpdateAllAdminJobs } = jobSlice.actions;
 export default jobSlice.reducer;
