@@ -108,7 +108,7 @@ function Navbar() {
                                                 src={userData?.profile?.profilePhoto}
                                                 alt="profile pic"
                                             />
-                                            <AvatarFallback>CN</AvatarFallback>
+                                            <AvatarFallback className='bg-red-200 flex items-center justify-center'>{userData?.fullname}</AvatarFallback>
 
                                         </Avatar>
                                         {/* </Button> */}

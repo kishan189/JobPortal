@@ -8,8 +8,11 @@ export const postJob = async (req,res)=>{
            return res.status(400).json({message:"Please fill all the inputs", status:false})
         }
 
+        const formattedRequirements = Array.isArray(requirements)? requirements: requirements.split(",");
+
+
         const job = await Job.create({
-            title, description, requirements: requirements.split(",")
+            title, description, requirements: formattedRequirements
             , salary:Number(salary), location, jobType, position, company:companyId, experience,created_by:userId
         })
         return res.status(201).json({message:"Job posted successfully", status:true,job})
@@ -85,8 +88,11 @@ export const getJobById = async (req,res) =>{
 
 export const getAdminJob = async (req,res)=>{
     try{
-        const adminId = req.id
-        const jobs = await Job.find({created_by:adminId});
+        const adminId = req.userId
+        console.log("adminId✔",adminId)
+        const jobs = await Job.find({created_by:adminId}).populate({path:"company",sort:{createdAt:-1}});
+
+        console.log("jobs",jobs)
         if(!jobs){
             return res.status(404).json({message:"No job found",status:false})
         }
