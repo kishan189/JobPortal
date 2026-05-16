@@ -29,7 +29,7 @@ function Navbar() {
 
         }
     }, [])
-    console.log("userData????",userData)
+    // console.log("userData????",userData)
 
     const handleLogout = async () => {
         try {
@@ -68,7 +68,7 @@ function Navbar() {
 
                 </div>
                 <div className="flex item-center justify-between gap-8">
-                    <ui className="flex font-medium items-center gap-6 list-none">
+                    <ul className="flex font-medium items-center gap-6 list-none">
                        {
                         user && user.role ==="Recruiter" ?
                         (
@@ -85,7 +85,7 @@ function Navbar() {
                             </>
                         )
                        }
-                    </ui>
+                    </ul>
                     {
                         !userData ? (
                             <div className='flex items-center justify-center gap-4'>
@@ -108,7 +108,7 @@ function Navbar() {
                                                 src={userData?.profile?.profilePhoto}
                                                 alt="profile pic"
                                             />
-                                            <AvatarFallback>CN</AvatarFallback>
+                                            <AvatarFallback className='bg-red-200 flex items-center justify-center'>{userData?.fullname}</AvatarFallback>
 
                                         </Avatar>
                                         {/* </Button> */}

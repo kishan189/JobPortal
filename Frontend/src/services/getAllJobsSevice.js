@@ -1,5 +1,5 @@
 import apiInterceptor from "@/utils/apiInterceptor"
-import { JOB_API_ENDPOINT } from "@/utils/data"
+import { APPLICATION_API_ENDPOINT, JOB_API_ENDPOINT } from "@/utils/data"
 
 export const fetchAllJobsService = async () => {
   const res = await apiInterceptor.get(`${JOB_API_ENDPOINT}/getJobs`);
@@ -9,9 +9,7 @@ export const fetchAllJobsService = async () => {
 
 export const getJobById = async (jobId) => {
     try {
-        const res = await apiInterceptor.get(
-             `http://localhost:5171/api/jobs/get/${jobId}`
-        );
+        const res = await apiInterceptor.get(`${JOB_API_ENDPOINT}/get/${jobId}`);
 
         return res.data;
     } catch (err) {
@@ -22,8 +20,7 @@ export const getJobById = async (jobId) => {
 export const applyJob = async (jobId) => {
     try {
         const res = await apiInterceptor.get(
-            // `http://localhost:5171/api/jobs/get/${jobId}`
-             `http://localhost:5171/api/application/apply/${jobId}`
+             `${APPLICATION_API_ENDPOINT}/apply/${jobId}`
         );
 
         return res.data;

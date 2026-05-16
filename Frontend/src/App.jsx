@@ -18,6 +18,10 @@ import { useDispatch } from 'react-redux'
 import Profile from './pages/Profile'
 import Description from './pages/Description'
 import Companies from './components/adminComponents/Companies'
+import CreateCompany from './components/adminComponents/CreateCompany'
+import CompanySetup from './components/adminComponents/CompanySetup'
+import AdminJobs from './components/adminComponents/AdminJobs'
+import PostJob from './components/adminComponents/PostJob'
 
 const appRouter = createBrowserRouter([
   {path:"/", element : 
@@ -31,7 +35,13 @@ const appRouter = createBrowserRouter([
    {path:"/profile", element :<ProtectedRoute><Profile/></ProtectedRoute> },
   {path:"/description/:jobId", element :<ProtectedRoute><Description/></ProtectedRoute> },
     {path:"/admin/companies", element :<ProtectedRoute><Companies/></ProtectedRoute> },
-  {path:"/admin/companies", element :<ProtectedRoute><Description/></ProtectedRoute> },
+   {path:"/admin/companies/create", element :<ProtectedRoute><CreateCompany/></ProtectedRoute> },
+   {path:"/admin/companies/:id", element :<ProtectedRoute><CompanySetup/></ProtectedRoute> },
+    {path:"/admin/jobs", element :<ProtectedRoute><AdminJobs/></ProtectedRoute> },
+    {path:"/admin/postJob", element :<ProtectedRoute><PostJob/></ProtectedRoute> },
+     
+
+
 
 ])
 function App() {

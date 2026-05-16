@@ -1,7 +1,7 @@
 import { User } from "../modals/user.model.js";
 import jwt from "jsonwebtoken"
 import bcrypt from "bcryptjs"
-import getDataUri from "../utils/datauri.js";
+import getDataUrl from "../utils/datauri.js";
 import cloudinary from "../utils/cloud.js";
 export const register = async (req, res) => {
     try {
@@ -198,7 +198,7 @@ export const updateProfile = async (req, res) => {
         }
 
         if (file) {
-            const fileUri = getDataUri(file);
+            const fileUri = getDataUrl(file);
             const cloudinaryResponse = await cloudinary.uploader.upload(fileUri.content);
             user.profile.resume = cloudinaryResponse.secure_url;
             user.profile.resumeOriginalname = file.originalname;
@@ -269,7 +269,7 @@ export const updateProfilePicture = async (req, res) => {
     }
 
     // convert file to data URI
-    const fileUri = getDataUri(file);
+    const fileUri = getDataUrl(file);
 
     // upload to Cloudinary
     const cloudinaryResponse = await cloudinary.uploader.upload(fileUri.content, {

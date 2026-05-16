@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useParams, useSearchParams } from 'react-router-dom'
 import apiInterceptor from '@/utils/apiInterceptor'
 import { fetchJobById, setAppliedJob } from '@/redux/jobSlice'
+import { APPLICATION_API_ENDPOINT } from '@/utils/data'
 
 const array = [
     {
@@ -78,7 +79,7 @@ const Description = () => {
         try {
             if (jobId) {
                 setIdLoading(true)
-                const data = await apiInterceptor.post(`${"http://localhost:5171/api/application/apply"}/${jobId}`)
+                const data = await apiInterceptor.post(`${APPLICATION_API_ENDPOINT}/apply/${jobId}`)
                 console.log("data>>>::", data)
                 if (data?.status) {
                     setIsJobApplied(true)

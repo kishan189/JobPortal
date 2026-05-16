@@ -1,5 +1,6 @@
 import { Company } from "../modals/company.model.js";
-
+import getDataUrl from "../utils/datauri.js";
+import cloudinary from "../utils/cloud.js";
 export const registerCompany = async (req, res) =>{
     try{
            const {companyName} = req.body;
@@ -33,7 +34,10 @@ export const registerCompany = async (req, res) =>{
 export const getAllCompanies = async (req, res)=>{
     try{
        
-        const userId = req.id;
+        const userId = req.userId;
+        if(!userId){
+            return res.status(401).json({message:"Unauthorized"})
+        }
         const companies = await Company.find({userId})
         if(!companies){
             return res.status(404).json({message:"No company found"})
@@ -67,7 +71,11 @@ export const updateCompany = async (req, res) => {
        
         const {name, description, website , location} = req.body
         const file = req.file
-        const updateData = {name, description, website, location};
+
+        const fileUrl = getDataUrl(file)
+        const clodinaryResponse = await cloudinary.uploader.upload(fileUrl.content)
+        const logo = clodinaryResponse.secure_url
+        const updateData = {name, description, website, location, logo};
 
         const company = await Company.findByIdAndUpdate(req.params.id, updateData, {
             new:true
