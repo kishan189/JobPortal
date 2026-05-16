@@ -14,13 +14,14 @@ dotenv.config();
 const app = express()
 
 // middleware
+console.log("hi")
 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 
 const corsOption = {
-    origin: ["http://localhost:5121", "http://localhost:3000", "http://localhost:5173", "http://localhost:4173"],
+    origin: ["http://localhost:5121", "http://localhost:3000", "http://localhost:5173", "http://localhost:4173","https://jobportal-test.netlify.app"],
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Cookie']
