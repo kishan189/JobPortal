@@ -1,10 +1,27 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from '../ui/button'
 import { Search } from 'lucide-react'
 import { HiBuildingOffice2 } from "react-icons/hi2";
+import { useDispatch } from 'react-redux';
+import { setSearchJobQuery } from '@/redux/jobSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 const Header = () => {
+
+  const [query, setQuery] = useState("")
+  const dispatch = useDispatch()
+  const navigate = useNavigate("")
+
+  const searchJobHandler = ()=>{
+    console.log("ppppppppp")
+     dispatch(setSearchJobQuery(query))
+    //  setQuery("")
+     navigate("/browse")
+  }
+  useEffect(()=>{
+    console.log("query>>>",query)
+  },[query])
   return (
     <div>
       <div className='flex flex-col text-center items-center justify-center gap-4 py-8'>
@@ -23,9 +40,10 @@ const Header = () => {
             type='text'
             placeholder='Find your dream job' 
             className='outline-none border-none w-full '
+            onChange={(e)=>setQuery(e.target.value)}
             />
-            <Button className="rounded-r-full">
-              <Search className='h-5 w-5'/>
+            <Button className="rounded-r-full" onClick={()=>searchJobHandler()}>
+              <Search className='h-5 w-5' />
             </Button>
             
         </div>
